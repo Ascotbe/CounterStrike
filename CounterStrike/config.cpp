@@ -1,24 +1,7 @@
 #include"config.h"
 
 
-uintptr_t FindDirectMemoryAccessAddy(uintptr_t addr, vector<unsigned int> offsets)
-{
-	uintptr_t tmp;
-	for (unsigned int i = 0; i != offsets.size(); i++)
-	{
-		addr += offsets[i];
-		if (i < offsets.size() - 1)//最后一次只加偏移量，不用读取了 
-		{
-			bool state = ReadProcessMemory(game_handle, (LPVOID)addr, &tmp, sizeof(tmp), 0);
-			if (!state)
-			{
-				cout << "error in reading memory!" << endl;
-			}
-			addr = tmp;
-		}
-	}
-	return addr;
-}
+
 
 role_offsets IntoConfig(role_offsets* offsets)
 {

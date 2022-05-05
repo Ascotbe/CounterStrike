@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+Debug/*
+Release/*
+CounterStrike/Release/*
+CounterStrike/Debug/*

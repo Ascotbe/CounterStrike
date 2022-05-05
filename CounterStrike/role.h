@@ -1,5 +1,5 @@
 #pragma once
-#include"config.h"
-void Money(role_offsets* offsets);
-void MainWeapon(role_offsets* offsets);
-void AttackInterval(role_offsets* offsets);
+#include "config.h"
+void Money(role_offsets* offsets, game_information& game);
+void MainWeapon(role_offsets* offsets, game_information& game);
+void AttackInterval(role_offsets* offsets, game_information& game);

@@ -5,8 +5,9 @@
 #include <stdio.h>
 #include <time.h>
 #include <vector>
-#include"config.h"
-#include"role.h"
+#include "role.h"
+#include "config.h"
+
 using namespace std;
 
 
@@ -52,35 +53,35 @@ HMODULE GetProcessBase(DWORD PID)
 
 
 
-bool InIt(role_offsets * offsets)
+bool InIt(role_offsets * offsets, game_information &game)
 {
 	
 	//通过cs的进程名字获取窗口句柄 
-	hwnd = FindWindowA(NULL, "Counter-Strike");
-	if (hwnd == NULL)
+	game.hwnd = FindWindowA(NULL, "Counter-Strike");
+	if (game.hwnd == NULL)
 	{
 		cout << "There is no such a window!" << endl;
 		return 0;
 	}
 
 	//获取进程PID 
-	GetWindowThreadProcessId(hwnd,&process_identity_document);
+	GetWindowThreadProcessId(game.hwnd, &game.process_identity_document);
 
 	//获取进程句柄 
-	game_handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, process_identity_document);
+	game.game_handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, game.process_identity_document);
 
-	if (game_handle == NULL)
+	if (game.game_handle == NULL)
 	{
 		cout << "There is no such a process!" << endl;
 		return 0;
 	}
 
-	HMODULE module = GetProcessBase(process_identity_document);
+	HMODULE module = GetProcessBase(game.process_identity_document);
 	if (module == NULL)
 	{
 		return 0;
 	}
-	offsets->own_base_address = (UINT_PTR)module;
+	game.own_base_address = (UINT_PTR)module;
 
 	return 1;
 }
@@ -94,9 +95,9 @@ int main()
 {
 
 	role_offsets offsets;
-	
+	game_information game;
 	IntoConfig(&offsets);
-	if (!InIt(&offsets))
+	if (!InIt(&offsets,game))
 	{
 		cout << "初始化失败" << endl;
 		Sleep(3000);
@@ -105,14 +106,14 @@ int main()
 
 	while (1)
 	{
-		AttackInterval(&offsets);//攻击间隔
-		Money(&offsets);//修改金钱 
-		MainWeapon(&offsets);//修改主武器子弹数 
+		AttackInterval(&offsets, game);//攻击间隔
+		Money(&offsets, game);//修改金钱 
+		MainWeapon(&offsets, game);//修改主武器子弹数 
 		//changeRifleBullets();//
 		
 		Sleep(50);//暂停5秒，实战得提高刷新频率 
 	}
-	CloseHandle(game_handle);
+	CloseHandle(game.game_handle);
 
 	return 0;
 }

@@ -6,10 +6,15 @@ using namespace std;
 
 
 
-HWND hwnd = NULL;
-//程序的地址，类似于一个int
-DWORD process_identity_document = NULL;//进程ID
-HANDLE game_handle = NULL;//游戏句柄
+typedef struct {
+	uintptr_t own_base_address;//进程基地址
+	//uintptr_t own_base_address = 0x25069bc;//当前用户基地址，0x1400000+0x11069BC
+	HWND hwnd;
+	//程序的地址，类似于一个int
+	DWORD process_identity_document;//进程ID
+	HANDLE game_handle;//游戏句柄
+}game_information;
+
 
 typedef struct {
 	uintptr_t own_base_address;//进程基地址
