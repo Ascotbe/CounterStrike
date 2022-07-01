@@ -30,7 +30,6 @@
 *.exe
 *.out
 *.app
-Debug/*
-Release/*
-CounterStrike/Release/*
-CounterStrike/Debug/*
+**/Debug
+**/Release
+**/.DS_Store

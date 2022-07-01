@@ -13,3 +13,7 @@
 [CSGO破解学习(五)](https://www.ascotbe.com/2022/04/24/CSGO_0x05/)
 
 [CSGO破解学习(六)](https://www.ascotbe.com/2022/04/27/CSGO_0x06/)
+
+[CSGO破解学习(七)](https://www.ascotbe.com/2022/05/12/CSGO_0x07/)
+
+[CSGO破解学习(八)](https://www.ascotbe.com/2022/05/19/CSGO_0x08/)
