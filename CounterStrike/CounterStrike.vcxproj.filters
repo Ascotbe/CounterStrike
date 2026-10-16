@@ -24,12 +24,24 @@
     <ClCompile Include="config.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="gui.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="esp.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="role.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="gui.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="esp.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

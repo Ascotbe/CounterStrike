@@ -1,9 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CounterStrike", "CounterStrike\CounterStrike.vcxproj", "{B429C2EF-08DD-4A78-BA58-C8E600F5F478}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CounterStrikeHook", "CounterStrikeHook\Hook.vcxproj", "{5C1B7D24-6A3F-4A6E-9D2C-7F0B41C8A913}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{B429C2EF-08DD-4A78-BA58-C8E600F5F478}.Release|x64.Build.0 = Release|x64
 		{B429C2EF-08DD-4A78-BA58-C8E600F5F478}.Release|x86.ActiveCfg = Release|Win32
 		{B429C2EF-08DD-4A78-BA58-C8E600F5F478}.Release|x86.Build.0 = Release|Win32
+		{5C1B7D24-6A3F-4A6E-9D2C-7F0B41C8A913}.Debug|x86.ActiveCfg = Debug|Win32
+		{5C1B7D24-6A3F-4A6E-9D2C-7F0B41C8A913}.Debug|x86.Build.0 = Debug|Win32
+		{5C1B7D24-6A3F-4A6E-9D2C-7F0B41C8A913}.Release|x86.ActiveCfg = Release|Win32
+		{5C1B7D24-6A3F-4A6E-9D2C-7F0B41C8A913}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

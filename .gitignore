@@ -33,3 +33,25 @@
 **/Debug
 **/Release
 **/.DS_Store
+
+# Linker / compiler intermediates and build logs
+*.pdb
+*.ilk
+*.exp
+*.iobj
+*.ipdb
+*.tlog
+*.recipe
+*.lastbuildstate
+*.log
+
+# Build output dirs (any configuration name)
+**/obj/
+x64/
+ARM64/
+
+# Local only (never commit): game install / third-party CT tables / helper tools / scratch
+/tmp/
+/game/
+/ct_tables/
+/tools/

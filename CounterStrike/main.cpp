@@ -1,119 +1,17 @@
-#define _CRT_SECURE_NO_WARNINGS
-#include <iostream>
-#include <Windows.h>
-#include <Tlhelp32.h>
-#include <stdio.h>
-#include <time.h>
-#include <vector>
-#include "role.h"
-#include "config.h"
+ï»¿#include <Windows.h>
+#include "gui.h"
 
-using namespace std;
+#pragma comment(lib, "user32.lib")
 
+// æ¸¸æˆæ˜¯ 32 ä½è¿›ç¨‹ï¼Œç”¨ x64 é…ç½®ç¼–è¯‘æŒ‡é’ˆé•¿åº¦ä¼šå¯¹ä¸ä¸Š
+static_assert(sizeof(void*) == 4, "è¯·ä½¿ç”¨ Win32(x86) é…ç½®ç¼–è¯‘ï¼Œæ¸¸æˆè¿›ç¨‹æ˜¯ 32 ä½çš„ï¼");
 
-
-////Í¨¹ıPID»ñÈ¡»ùµØÖ· 
-HMODULE GetProcessBase(DWORD PID)
+// å›¾å½¢ç•Œé¢ç‰ˆæœ¬ï¼šæ‰€æœ‰åŠŸèƒ½éƒ½åœ¨ gui.cpp é‡Œï¼Œç•Œé¢å³ä¾§æœ‰å¿«æ·é”®å’ŒåŠŸèƒ½è¯´æ˜ã€‚
+#ifdef _UNICODE
+int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, LPWSTR, int show_command)
+#else
+int WINAPI WinMain(HINSTANCE instance, HINSTANCE, LPSTR, int show_command)
+#endif
 {
-	//»ñÈ¡½ø³Ì»ùÖ·
-	HANDLE snap_shot;
-	//Í¨¹ıCreateToolhelp32SnapshotºÍÏß³ÌID£¬»ñÈ¡½ø³Ì¿ìÕÕ
-	snap_shot = CreateToolhelp32Snapshot(TH32CS_SNAPMODULE, PID);
-	if (snap_shot == INVALID_HANDLE_VALUE)
-	{
-		cout<<"can't create Snapshot!";
-		return NULL;
-	}
-	MODULEENTRY32 module_entry32;
-	module_entry32.dwSize = sizeof(module_entry32);
-	if (Module32First(snap_shot, &module_entry32))
-	{
-		do
-		{
-			TCHAR tmp[5];
-			strcpy(tmp, module_entry32.szExePath + strlen(module_entry32.szExePath) - 4);
-			for (int i = 0; i < 4; i++)
-			{
-				if ((tmp[i] >= 'a') && (tmp[i] <= 'z'))
-				{
-					tmp[i] = tmp[i] - 0x20;
-				}
-			}
-			if (!strcmp(tmp, ".EXE"))
-			{
-				CloseHandle(snap_shot);
-				return module_entry32.hModule;
-			}
-		} while (Module32Next(snap_shot, &module_entry32));
-	}
-	CloseHandle(snap_shot);
-	return NULL;
-
-}
-
-
-
-bool InIt(role_offsets * offsets, game_information &game)
-{
-	
-	//Í¨¹ıcsµÄ½ø³ÌÃû×Ö»ñÈ¡´°¿Ú¾ä±ú 
-	game.hwnd = FindWindowA(NULL, "Counter-Strike");
-	if (game.hwnd == NULL)
-	{
-		cout << "There is no such a window!" << endl;
-		return 0;
-	}
-
-	//»ñÈ¡½ø³ÌPID 
-	GetWindowThreadProcessId(game.hwnd, &game.process_identity_document);
-
-	//»ñÈ¡½ø³Ì¾ä±ú 
-	game.game_handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, game.process_identity_document);
-
-	if (game.game_handle == NULL)
-	{
-		cout << "There is no such a process!" << endl;
-		return 0;
-	}
-
-	HMODULE module = GetProcessBase(game.process_identity_document);
-	if (module == NULL)
-	{
-		return 0;
-	}
-	game.own_base_address = (UINT_PTR)module;
-
-	return 1;
-}
-
-
-
-
-
-
-int main()
-{
-
-	role_offsets offsets;
-	game_information game;
-	IntoConfig(&offsets);
-	if (!InIt(&offsets,game))
-	{
-		cout << "³õÊ¼»¯Ê§°Ü" << endl;
-		Sleep(3000);
-		return 0;
-	}
-
-	while (1)
-	{
-		AttackInterval(&offsets, game);//¹¥»÷¼ä¸ô
-		Money(&offsets, game);//ĞŞ¸Ä½ğÇ® 
-		MainWeapon(&offsets, game);//ĞŞ¸ÄÖ÷ÎäÆ÷×Óµ¯Êı 
-		//changeRifleBullets();//
-		
-		Sleep(50);//ÔİÍ£5Ãë£¬ÊµÕ½µÃÌá¸ßË¢ĞÂÆµÂÊ 
-	}
-	CloseHandle(game.game_handle);
-
-	return 0;
+    return RunTrainerGui(instance, show_command);
 }
